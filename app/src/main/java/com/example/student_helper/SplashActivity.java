@@ -13,7 +13,8 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Primijeni temu
+
+        // Primijena teme
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
         boolean isDark = settings.getBoolean("dark_mode", false);
         AppCompatDelegate.setDefaultNightMode(
@@ -24,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Nakon 2 sekunde idi na sljedeći ekran
+        // Promjena ekrana
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
             boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
