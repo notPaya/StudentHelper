@@ -2,6 +2,7 @@
 
 > Android aplikacija za organizaciju studentskog života: raspored, ispiti, bilješke i study timer.
 
+
 ---
 
 ## 📖 O aplikaciji
@@ -16,6 +17,7 @@ Aplikacija pomaže studentima da:
 - Ostanu motivirani kroz XP i Streak sistem
 
 ---
+
 
 ## ✨ Funkcionalnosti
 
@@ -33,6 +35,7 @@ Aplikacija pomaže studentima da:
 | 🎉 **Onboarding** | Ekran dobrodošlice pri prvom pokretanju |
 
 ---
+
 
 ## 🛠️ Tehnologije
 
