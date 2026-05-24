@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Student_Helper</string>
+    <string name="no_classes_today">Nema predavanja danas!</string>
+    <string name="notification_channel_name">Podsjetnici za ispite</string>
+</resources>

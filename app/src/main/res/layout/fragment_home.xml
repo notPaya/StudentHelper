@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- PROFIL SEKCIJA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <FrameLayout
+                android:id="@+id/layoutProfileImage"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginEnd="14dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_camera"
+                    app:shapeAppearanceOverlay="@style/CircleImageView"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="📷"
+                    android:textSize="10sp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dodaj ime ✏️"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dobro jutro!"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌙"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Streak i XP kartice - iste visine -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#FFF3E0"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔥" android:textSize="28sp" />
+                    <TextView android:id="@+id/tvStreak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 dana" android:textColor="@color/streakFire" android:textSize="20sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="streak" android:textColor="@color/colorTextSecondary" android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorPrimaryLight"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐" android:textSize="28sp" />
+                    <TextView android:id="@+id/tvLevel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nivo 1" android:textColor="@color/colorPrimaryDark" android:textSize="20sp" android:textStyle="bold" />
+                    <ProgressBar android:id="@+id/xpProgressBar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="6dp" android:max="100" android:progress="0" android:progressTint="@color/colorPrimary" />
+                    <TextView android:id="@+id/tvXP" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 XP" android:textColor="@color/colorTextSecondary" android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Danas -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:text="📚 Danas" android:textColor="@color/colorOnBackground" android:textSize="18sp" android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/colorSurface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+            <LinearLayout
+                android:id="@+id/layoutTodayClasses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView android:id="@+id/tvNoClassesToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nema predavanja danas 🎉" android:textColor="@color/colorTextSecondary" android:visibility="gone" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Sljedeci ispit -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:text="📝 Sljedeći ispit" android:textColor="@color/colorOnBackground" android:textSize="18sp" android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/colorSurface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <TextView android:id="@+id/tvNextExamName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nema nadolazećih ispita" android:textColor="@color/colorOnBackground" android:textSize="16sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvNextExamDays" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorTextSecondary" android:textSize="13sp" android:visibility="gone" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Motivacijski citat -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                <TextView android:id="@+id/tvQuote" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&quot;Svaki ekspert je bio početnik.&quot;" android:textColor="@color/white" android:textSize="15sp" android:textStyle="italic" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="💪 Nastavi učiti!" android:textColor="#B0BEC5" android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- O aplikaciji -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorSurface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ℹ️ O aplikaciji"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Student Helper v1.0"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Razvio: Danis Pajić"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Predmet: Razvoj mobilnih aplikacija"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👋"
+            android:textSize="72sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Dobrodošao!"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="StudentHelper će ti pomoći da organizuješ studiranje, pratiš ispite i učiš efikasnije."
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp" />
+
+        <!-- Unos imena -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/colorSurface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Kako se zoveš?"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Upiši svoje ime...">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etOnboardingName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Features lista -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            app:cardBackgroundColor="@color/colorSurface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Šta te čeka:"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📅  Raspored predavanja"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp" android:layout_marginBottom="8dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📝  Ispiti s odbrojavanjem"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp" android:layout_marginBottom="8dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📓  Bilješke u bojama"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp" android:layout_marginBottom="8dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="⏱️  Study Timer s XP nagradama"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp" android:layout_marginBottom="8dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="⭐  Gamifikacija – skupljaj XP!"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🚀 Počni koristiti!"
+            android:textSize="16sp"
+            app:backgroundTint="@color/colorPrimary" />
+
+    </LinearLayout>
+</ScrollView>

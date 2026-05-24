@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_nav_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/scheduleFragment"
+        android:icon="@drawable/ic_nav_schedule"
+        android:title="Raspored" />
+    <item
+        android:id="@+id/examsFragment"
+        android:icon="@drawable/ic_nav_exams"
+        android:title="Ispiti" />
+    <item
+        android:id="@+id/notesFragment"
+        android:icon="@drawable/ic_nav_notes"
+        android:title="Bilješke" />
+    <item
+        android:id="@+id/timerFragment"
+        android:icon="@drawable/ic_nav_timer"
+        android:title="Timer" />
+</menu>
