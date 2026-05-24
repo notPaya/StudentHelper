@@ -62,7 +62,8 @@ public class HomeFragment extends Fragment {
                 new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
-                        // Kopiraj sliku u interno skladište
+
+                        // Kopira sliku u interno skladište
                         try {
                             InputStream inputStream = requireContext()
                                     .getContentResolver().openInputStream(uri);
@@ -78,13 +79,13 @@ public class HomeFragment extends Fragment {
                             outputStream.close();
                             inputStream.close();
 
-                            // Sačuvaj putanju
+                            // Sačuva putanju
                             SharedPreferences prefs = requireContext()
                                     .getSharedPreferences("profile", Context.MODE_PRIVATE);
                             prefs.edit().putString("profile_image",
                                     outputFile.getAbsolutePath()).apply();
 
-                            // Prikaži sliku
+                            // Prikaže sliku
                             Bitmap bitmap = BitmapFactory.decodeFile(
                                     outputFile.getAbsolutePath());
                             binding.ivProfile.setImageBitmap(bitmap);
@@ -121,7 +122,7 @@ public class HomeFragment extends Fragment {
         String date = sdf.format(new Date());
         binding.tvDate.setText(date.substring(0, 1).toUpperCase() + date.substring(1));
 
-        // Citat
+        // Citati
         binding.tvQuote.setText(quotes.get(new Random().nextInt(quotes.size())));
 
         // Statistike
@@ -150,7 +151,7 @@ public class HomeFragment extends Fragment {
             );
         });
 
-        // Observer za danasnje predmete
+        // Pregled za danasnje predmete
         viewModel.getTodayClasses().observe(getViewLifecycleOwner(), classes -> {
             binding.layoutTodayClasses.removeAllViews();
             if (classes == null || classes.isEmpty()) {
