@@ -29,7 +29,7 @@ public class OnboardingActivity extends AppCompatActivity {
             if (!name.isEmpty()) {
                 editor.putString("profile_name", name);
             }
-            // Označi da nije više prvi put
+            // Detektor da nije prvi put
             editor.putBoolean("first_launch", false);
             editor.apply();
 
