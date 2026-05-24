@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Primijena teme
+        //Primijena teme
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
         boolean isDark = settings.getBoolean("dark_mode", false);
         AppCompatDelegate.setDefaultNightMode(
