@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // ✅ Tema se mora primijeniti PRIJE super.onCreate
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
         boolean isDark = prefs.getBoolean("dark_mode", false);
         AppCompatDelegate.setDefaultNightMode(
