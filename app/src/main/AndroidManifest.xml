@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentHelper">
 
-        <!-- SPLASH - ovo je sada launcher -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -25,12 +25,10 @@
             </intent-filter>
         </activity>
 
-        <!-- ONBOARDING -->
         <activity
             android:name=".OnboardingActivity"
             android:exported="false" />
 
-        <!-- MAIN -->
         <activity
             android:name=".MainActivity"
             android:exported="false"

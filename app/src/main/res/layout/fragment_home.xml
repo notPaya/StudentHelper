@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- PROFIL SEKCIJA -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- Streak i XP kartice - iste visine -->
+        <!-- Streak i XP kartice -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -133,7 +132,6 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- Danas -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:text="📚 Danas" android:textColor="@color/colorOnBackground" android:textSize="18sp" android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
@@ -153,7 +151,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Sljedeci ispit -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:text="📝 Sljedeći ispit" android:textColor="@color/colorOnBackground" android:textSize="18sp" android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
@@ -169,7 +166,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Motivacijski citat -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -183,48 +179,58 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- O aplikaciji -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMoodle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/colorSurface"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ℹ️ O aplikaciji"
-                    android:textColor="@color/colorOnBackground"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="🎓"
+                    android:textSize="28sp"
+                    android:layout_marginEnd="14dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IPI Moodle"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otvori svoju nastavnu platformu"
+                        android:textColor="#D0D5F5"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Student Helper v1.0"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Razvio: Danis Pajić"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Predmet: Razvoj mobilnih aplikacija"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textSize="12sp" />
+                    android:text="▶"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

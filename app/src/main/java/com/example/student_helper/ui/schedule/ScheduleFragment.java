@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.example.student_helper.R;
+import com.google.android.material.chip.Chip;
 import com.example.student_helper.database.entity.ScheduleItem;
 import com.example.student_helper.databinding.DialogAddScheduleBinding;
 import com.example.student_helper.databinding.FragmentScheduleBinding;
@@ -29,6 +29,8 @@ public class ScheduleFragment extends Fragment {
     private ScheduleViewModel viewModel;
     private ScheduleAdapter adapter;
     private int selectedDay = 1;
+
+    private Chip[] dayChips;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -46,7 +48,22 @@ public class ScheduleFragment extends Fragment {
         binding.rvSchedule.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvSchedule.setAdapter(adapter);
 
-        // Auto-odabir današnjeg dana
+        dayChips = new Chip[]{
+                binding.chipMon, binding.chipTue, binding.chipWed,
+                binding.chipThu, binding.chipFri, binding.chipSat, binding.chipSun
+        };
+
+        // Postavi listener za svaki chip
+        for (int i = 0; i < dayChips.length; i++) {
+            final int day = i + 1;
+            dayChips[i].setOnClickListener(v -> {
+                selectedDay = day;
+                selectChipForDay(day);
+                loadDay(day);
+            });
+        }
+
+        // Auto-odabir danasnjeg dana (1=Pon ... 7=Ned)
         int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         switch (today) {
             case Calendar.MONDAY:    selectedDay = 1; break;
@@ -54,23 +71,20 @@ public class ScheduleFragment extends Fragment {
             case Calendar.WEDNESDAY: selectedDay = 3; break;
             case Calendar.THURSDAY:  selectedDay = 4; break;
             case Calendar.FRIDAY:    selectedDay = 5; break;
+            case Calendar.SATURDAY:  selectedDay = 6; break;
+            case Calendar.SUNDAY:    selectedDay = 7; break;
             default:                 selectedDay = 1;
         }
         selectChipForDay(selectedDay);
         loadDay(selectedDay);
 
-        binding.chipGroupDays.setOnCheckedStateChangeListener((group, checkedIds) -> {
-            if (checkedIds.isEmpty()) return;
-            int id = checkedIds.get(0);
-            if      (id == R.id.chipMon) selectedDay = 1;
-            else if (id == R.id.chipTue) selectedDay = 2;
-            else if (id == R.id.chipWed) selectedDay = 3;
-            else if (id == R.id.chipThu) selectedDay = 4;
-            else if (id == R.id.chipFri) selectedDay = 5;
-            loadDay(selectedDay);
-        });
-
         binding.fabAddSchedule.setOnClickListener(v -> showAddScheduleDialog());
+    }
+
+    private void selectChipForDay(int day) {
+        for (int i = 0; i < dayChips.length; i++) {
+            dayChips[i].setChecked((i + 1) == day);
+        }
     }
 
     private void loadDay(int day) {
@@ -79,18 +93,6 @@ public class ScheduleFragment extends Fragment {
             binding.tvEmptySchedule.setVisibility(items.isEmpty() ? View.VISIBLE : View.GONE);
             binding.rvSchedule.setVisibility(items.isEmpty() ? View.GONE : View.VISIBLE);
         });
-    }
-
-    private void selectChipForDay(int day) {
-        int chipId;
-        switch (day) {
-            case 1:  chipId = R.id.chipMon; break;
-            case 2:  chipId = R.id.chipTue; break;
-            case 3:  chipId = R.id.chipWed; break;
-            case 4:  chipId = R.id.chipThu; break;
-            default: chipId = R.id.chipFri;
-        }
-        binding.chipGroupDays.check(chipId);
     }
 
     private void showAddScheduleDialog() {

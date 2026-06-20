@@ -29,4 +29,9 @@
         android:name="com.example.student_helper.ui.timer.TimerFragment"
         android:label="Timer" />
 
+    <fragment
+        android:id="@+id/moodleFragment"
+        android:name="com.example.student_helper.ui.moodle.MoodleFragment"
+        android:label="Moodle" />
+
 </navigation>

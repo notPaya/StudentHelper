@@ -3,6 +3,7 @@ package com.example.student_helper;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
@@ -37,5 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationHelper.createNotificationChannel(this);
         XPManager.checkAndUpdateStreak(this);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (navController.getCurrentDestination() != null
+                        && navController.getCurrentDestination().getId() != R.id.homeFragment) {
+                    navController.navigate(R.id.homeFragment);
+                } else {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
     }
 }

@@ -39,6 +39,8 @@ public class HomeViewModel extends AndroidViewModel {
                 case Calendar.WEDNESDAY: day = 3; break;
                 case Calendar.THURSDAY:  day = 4; break;
                 case Calendar.FRIDAY:    day = 5; break;
+                case Calendar.SATURDAY:  day = 6; break;
+                case Calendar.SUNDAY:    day = 7; break;
                 default:                 day = 1;
             }
             todayClasses.postValue(db.scheduleDao().getByDaySync(day));

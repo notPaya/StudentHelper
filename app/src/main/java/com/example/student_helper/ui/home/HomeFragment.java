@@ -19,12 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.student_helper.R;
 import com.example.student_helper.database.entity.ScheduleItem;
 import com.example.student_helper.databinding.FragmentHomeBinding;
 import com.example.student_helper.utils.XPManager;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,13 +57,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Registruj image picker
         pickImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
-
-                        // Kopira sliku u interno skladište
                         try {
                             InputStream inputStream = requireContext()
                                     .getContentResolver().openInputStream(uri);
@@ -79,13 +76,11 @@ public class HomeFragment extends Fragment {
                             outputStream.close();
                             inputStream.close();
 
-                            // Sačuva putanju
                             SharedPreferences prefs = requireContext()
                                     .getSharedPreferences("profile", Context.MODE_PRIVATE);
                             prefs.edit().putString("profile_image",
                                     outputFile.getAbsolutePath()).apply();
 
-                            // Prikaže sliku
                             Bitmap bitmap = BitmapFactory.decodeFile(
                                     outputFile.getAbsolutePath());
                             binding.ivProfile.setImageBitmap(bitmap);
@@ -112,9 +107,9 @@ public class HomeFragment extends Fragment {
 
         // Pozdrav
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (hour < 12)      binding.tvGreeting.setText("Dobro jutro! 👋");
-        else if (hour < 18) binding.tvGreeting.setText("Dobar dan! 👋");
-        else                binding.tvGreeting.setText("Dobra večer! 👋");
+        if (hour < 12)      binding.tvGreeting.setText("Dobro jutro!");
+        else if (hour < 18) binding.tvGreeting.setText("Dobar dan!");
+        else                binding.tvGreeting.setText("Dobra večer!");
 
         // Datum
         SimpleDateFormat sdf = new SimpleDateFormat(
@@ -122,20 +117,18 @@ public class HomeFragment extends Fragment {
         String date = sdf.format(new Date());
         binding.tvDate.setText(date.substring(0, 1).toUpperCase() + date.substring(1));
 
-        // Citati
+        // Citat
         binding.tvQuote.setText(quotes.get(new Random().nextInt(quotes.size())));
 
         // Statistike
         updateStats();
 
-        // Učitaj profil
+        // Profil
         loadProfile();
 
-        // Klik na sliku → otvori galeriju
         binding.layoutProfileImage.setOnClickListener(v ->
                 pickImageLauncher.launch("image/*"));
 
-        // Klik na ime → dialog za promjenu imena
         binding.tvName.setOnClickListener(v -> showEditNameDialog());
 
         // Dark mode switch
@@ -151,7 +144,12 @@ public class HomeFragment extends Fragment {
             );
         });
 
-        // Pregled za danasnje predmete
+        // ✅ Moodle kartica - OVDJE, izvan dark mode listenera
+        binding.cardMoodle.setOnClickListener(v ->
+                Navigation.findNavController(view).navigate(R.id.moodleFragment)
+        );
+
+        // Observer za danasnje predmete
         viewModel.getTodayClasses().observe(getViewLifecycleOwner(), classes -> {
             binding.layoutTodayClasses.removeAllViews();
             if (classes == null || classes.isEmpty()) {
@@ -197,13 +195,11 @@ public class HomeFragment extends Fragment {
         SharedPreferences prefs = requireContext()
                 .getSharedPreferences("profile", Context.MODE_PRIVATE);
 
-        // Učitaj ime
         String savedName = prefs.getString("profile_name", null);
         if (savedName != null && !savedName.isEmpty()) {
             binding.tvName.setText(savedName);
         }
 
-        // Učitaj sliku
         String imagePath = prefs.getString("profile_image", null);
         if (imagePath != null) {
             File imageFile = new File(imagePath);
@@ -219,7 +215,6 @@ public class HomeFragment extends Fragment {
                 .getSharedPreferences("profile", Context.MODE_PRIVATE);
         String currentName = prefs.getString("profile_name", "");
 
-        // Input polje za ime
         EditText input = new EditText(requireContext());
         input.setHint("Upiši svoje ime...");
         input.setText(currentName);

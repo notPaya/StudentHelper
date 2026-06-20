@@ -83,7 +83,7 @@ public class TimerFragment extends Fragment {
 
         btnReset.setOnClickListener(v -> resetTimer());
     }
-
+//Pauza
     private void startTimer() {
         isRunning = true;
         sliderMinutes.setEnabled(false);
