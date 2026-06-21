@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
 }
 
+apply(plugin = "com.google.gms.google-services")
+
 android {
     namespace = "com.example.student_helper"
     compileSdk = 34

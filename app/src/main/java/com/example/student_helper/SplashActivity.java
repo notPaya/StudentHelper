@@ -9,12 +9,12 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Primijena teme
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
         boolean isDark = settings.getBoolean("dark_mode", false);
         AppCompatDelegate.setDefaultNightMode(
@@ -25,18 +25,24 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Promjena ekrana
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
-            boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
 
-            Intent intent;
-            if (isFirstLaunch) {
-                intent = new Intent(this, OnboardingActivity.class);
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+
+                SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
+                boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
+
+                Intent intent;
+                if (isFirstLaunch) {
+                    intent = new Intent(this, OnboardingActivity.class);
+                } else {
+                    intent = new Intent(this, MainActivity.class);
+                }
+                startActivity(intent);
             } else {
-                intent = new Intent(this, MainActivity.class);
+
+                startActivity(new Intent(this, LoginActivity.class));
             }
-            startActivity(intent);
             finish();
         }, 2000);
     }
