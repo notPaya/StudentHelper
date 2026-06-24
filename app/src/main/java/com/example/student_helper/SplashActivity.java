@@ -9,6 +9,7 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.student_helper.utils.UserUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,10 +27,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-
-                SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
+                String uid = UserUtils.getUid();
+                SharedPreferences prefs = getSharedPreferences("profile_" + uid, MODE_PRIVATE);
                 boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
 
                 Intent intent;
@@ -40,7 +40,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 startActivity(intent);
             } else {
-
                 startActivity(new Intent(this, LoginActivity.class));
             }
             finish();

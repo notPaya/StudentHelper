@@ -71,8 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     setLoading(false);
                     if (task.isSuccessful()) {
-                        // Sačuvaj ime lokalno (koristi se na Home ekranu)
-                        SharedPreferences profilePrefs = getSharedPreferences("profile", MODE_PRIVATE);
+                        String uid = com.example.student_helper.utils.UserUtils.getUid();
+                        SharedPreferences profilePrefs = getSharedPreferences("profile_" + uid, MODE_PRIVATE);
                         profilePrefs.edit().putString("profile_name", name).apply();
 
                         Toast.makeText(this, "Nalog kreiran! 🎉", Toast.LENGTH_SHORT).show();
@@ -86,7 +86,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void goToApp() {
-        SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
+        String uid = com.example.student_helper.utils.UserUtils.getUid();
+        SharedPreferences prefs = getSharedPreferences("profile_" + uid, MODE_PRIVATE);
         boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
 
         Intent intent;

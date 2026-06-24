@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.student_helper.utils.UserUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -23,13 +24,13 @@ public class OnboardingActivity extends AppCompatActivity {
             String name = etName.getText() != null
                     ? etName.getText().toString().trim() : "";
 
-            SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
+            String uid = UserUtils.getUid();
+            SharedPreferences prefs = getSharedPreferences("profile_" + uid, MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
             if (!name.isEmpty()) {
                 editor.putString("profile_name", name);
             }
-            // Detektor da nije prvi put
             editor.putBoolean("first_launch", false);
             editor.apply();
 

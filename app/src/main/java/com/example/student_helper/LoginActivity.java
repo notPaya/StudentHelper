@@ -71,7 +71,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToApp() {
-        SharedPreferences prefs = getSharedPreferences("profile", MODE_PRIVATE);
+        String uid = com.example.student_helper.utils.UserUtils.getUid();
+        SharedPreferences prefs = getSharedPreferences("profile_" + uid, MODE_PRIVATE);
         boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
 
         Intent intent;

@@ -2,6 +2,7 @@ package com.example.student_helper.ui.home;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,10 +22,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.student_helper.LoginActivity;
 import com.example.student_helper.R;
 import com.example.student_helper.database.entity.ScheduleItem;
 import com.example.student_helper.databinding.FragmentHomeBinding;
+import com.example.student_helper.utils.UserUtils;
 import com.example.student_helper.utils.XPManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,7 +69,7 @@ public class HomeFragment extends Fragment {
                             InputStream inputStream = requireContext()
                                     .getContentResolver().openInputStream(uri);
                             File outputFile = new File(
-                                    requireContext().getFilesDir(), "profile_pic.jpg");
+                                    requireContext().getFilesDir(), "profile_pic_" + UserUtils.getUid() + ".jpg");
                             FileOutputStream outputStream = new FileOutputStream(outputFile);
 
                             byte[] buffer = new byte[1024];
@@ -77,7 +81,7 @@ public class HomeFragment extends Fragment {
                             inputStream.close();
 
                             SharedPreferences prefs = requireContext()
-                                    .getSharedPreferences("profile", Context.MODE_PRIVATE);
+                                    .getSharedPreferences("profile_" + UserUtils.getUid(), Context.MODE_PRIVATE);
                             prefs.edit().putString("profile_image",
                                     outputFile.getAbsolutePath()).apply();
 
@@ -105,25 +109,19 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        // Pozdrav
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (hour < 12)      binding.tvGreeting.setText("Dobro jutro!");
-        else if (hour < 18) binding.tvGreeting.setText("Dobar dan!");
-        else                binding.tvGreeting.setText("Dobra večer!");
+        if (hour < 12)      binding.tvGreeting.setText("Dobro jutro! 👋");
+        else if (hour < 18) binding.tvGreeting.setText("Dobar dan! 👋");
+        else                binding.tvGreeting.setText("Dobra večer! 👋");
 
-        // Datum
         SimpleDateFormat sdf = new SimpleDateFormat(
                 "EEEE, dd. MMMM yyyy.", new Locale("bs", "BA"));
         String date = sdf.format(new Date());
         binding.tvDate.setText(date.substring(0, 1).toUpperCase() + date.substring(1));
 
-        // Citat
         binding.tvQuote.setText(quotes.get(new Random().nextInt(quotes.size())));
 
-        // Statistike
         updateStats();
-
-        // Profil
         loadProfile();
 
         binding.layoutProfileImage.setOnClickListener(v ->
@@ -131,7 +129,7 @@ public class HomeFragment extends Fragment {
 
         binding.tvName.setOnClickListener(v -> showEditNameDialog());
 
-        // Dark mode switch
+        // Dark mode switch - ostaje globalno (isto za sve korisnike)
         SharedPreferences settingsPrefs = requireContext()
                 .getSharedPreferences("settings", Context.MODE_PRIVATE);
         boolean isDark = settingsPrefs.getBoolean("dark_mode", false);
@@ -144,12 +142,19 @@ public class HomeFragment extends Fragment {
             );
         });
 
-        // ✅ Moodle kartica - OVDJE, izvan dark mode listenera
+        // Odjava
+        binding.tvLogout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
+        // Moodle kartica
         binding.cardMoodle.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.moodleFragment)
         );
 
-        // Observer za danasnje predmete
         viewModel.getTodayClasses().observe(getViewLifecycleOwner(), classes -> {
             binding.layoutTodayClasses.removeAllViews();
             if (classes == null || classes.isEmpty()) {
@@ -172,7 +177,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Observer za sljedeci ispit
         viewModel.getNextExam().observe(getViewLifecycleOwner(), exam -> {
             if (exam == null) {
                 binding.tvNextExamName.setText("Nema nadolazećih ispita 🎉");
@@ -193,11 +197,13 @@ public class HomeFragment extends Fragment {
 
     private void loadProfile() {
         SharedPreferences prefs = requireContext()
-                .getSharedPreferences("profile", Context.MODE_PRIVATE);
+                .getSharedPreferences("profile_" + UserUtils.getUid(), Context.MODE_PRIVATE);
 
         String savedName = prefs.getString("profile_name", null);
         if (savedName != null && !savedName.isEmpty()) {
             binding.tvName.setText(savedName);
+        } else {
+            binding.tvName.setText("Dodaj ime ✏️");
         }
 
         String imagePath = prefs.getString("profile_image", null);
@@ -206,13 +212,17 @@ public class HomeFragment extends Fragment {
             if (imageFile.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                 binding.ivProfile.setImageBitmap(bitmap);
+            } else {
+                binding.ivProfile.setImageResource(android.R.drawable.ic_menu_camera);
             }
+        } else {
+            binding.ivProfile.setImageResource(android.R.drawable.ic_menu_camera);
         }
     }
 
     private void showEditNameDialog() {
         SharedPreferences prefs = requireContext()
-                .getSharedPreferences("profile", Context.MODE_PRIVATE);
+                .getSharedPreferences("profile_" + UserUtils.getUid(), Context.MODE_PRIVATE);
         String currentName = prefs.getString("profile_name", "");
 
         EditText input = new EditText(requireContext());
@@ -245,6 +255,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateStats();
+        loadProfile();
         viewModel.loadData();
     }
 

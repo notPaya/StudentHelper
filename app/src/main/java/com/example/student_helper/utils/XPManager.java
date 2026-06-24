@@ -16,7 +16,8 @@ public class XPManager {
     private static final String KEY_LAST_DATE = "last_date";
 
     private static SharedPreferences getPrefs(Context context) {
-        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String uid = UserUtils.getUid();
+        return context.getSharedPreferences(PREFS_NAME + "_" + uid, Context.MODE_PRIVATE);
     }
 
     public static int getXP(Context context) {
@@ -48,7 +49,7 @@ public class XPManager {
         String lastDate = prefs.getString(KEY_LAST_DATE, "");
         int streak = prefs.getInt(KEY_STREAK, 0);
 
-        if (today.equals(lastDate)) return; // Već uračunato danas
+        if (today.equals(lastDate)) return;
 
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DAY_OF_YEAR, -1);
@@ -60,7 +61,7 @@ public class XPManager {
         prefs.edit()
                 .putString(KEY_LAST_DATE, today)
                 .putInt(KEY_STREAK, newStreak)
-                .putInt(KEY_XP, currentXP + 5) // +5 XP za dnevni streak
+                .putInt(KEY_XP, currentXP + 5)
                 .apply();
     }
 }
