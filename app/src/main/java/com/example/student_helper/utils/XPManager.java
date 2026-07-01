@@ -36,10 +36,20 @@ public class XPManager {
         return getXP(context) % 100;
     }
 
-    public static void addXP(Context context, int amount) {
+    /**
+     * Dodaje XP. Vraca true ako je korisnik dosegao novi nivo.
+     */
+    public static boolean addXP(Context context, int amount) {
         SharedPreferences prefs = getPrefs(context);
         int current = prefs.getInt(KEY_XP, 0);
-        prefs.edit().putInt(KEY_XP, current + amount).apply();
+        int oldLevel = (current / 100) + 1;
+
+        int newXP = current + amount;
+        int newLevel = (newXP / 100) + 1;
+
+        prefs.edit().putInt(KEY_XP, newXP).apply();
+
+        return newLevel > oldLevel;
     }
 
     public static void checkAndUpdateStreak(Context context) {

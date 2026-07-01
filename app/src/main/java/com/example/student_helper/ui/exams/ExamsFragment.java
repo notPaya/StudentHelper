@@ -25,6 +25,7 @@ import com.example.student_helper.R;
 import com.example.student_helper.database.entity.Exam;
 import com.example.student_helper.utils.NotificationHelper;
 import com.example.student_helper.utils.XPManager;
+import com.example.student_helper.utils.LevelUpHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,9 +113,13 @@ public class ExamsFragment extends Fragment {
                 NotificationHelper.scheduleExamNotification(
                         requireContext(), exam.id, subject, selectedDateMs[0]);
             }
-            XPManager.addXP(requireContext(), 15);
+            boolean leveledUp = XPManager.addXP(requireContext(), 15);
             Toast.makeText(requireContext(), "+15 XP!", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
+
+            if (leveledUp) {
+                LevelUpHelper.showLevelUpDialog(requireContext(), XPManager.getLevel(requireContext()));
+            }
         });
 
         dialog.show();

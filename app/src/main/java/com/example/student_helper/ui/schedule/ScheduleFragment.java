@@ -19,6 +19,7 @@ import com.example.student_helper.database.entity.ScheduleItem;
 import com.example.student_helper.databinding.DialogAddScheduleBinding;
 import com.example.student_helper.databinding.FragmentScheduleBinding;
 import com.example.student_helper.utils.XPManager;
+import com.example.student_helper.utils.LevelUpHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -130,9 +131,13 @@ public class ScheduleFragment extends Fragment {
                     endTime[0]
             );
             viewModel.addItem(item);
-            XPManager.addXP(requireContext(), 10);
+            boolean leveledUp = XPManager.addXP(requireContext(), 10);
             Toast.makeText(requireContext(), "+10 XP! 🎉", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
+
+            if (leveledUp) {
+                LevelUpHelper.showLevelUpDialog(requireContext(), XPManager.getLevel(requireContext()));
+            }
         });
 
         dialog.show();

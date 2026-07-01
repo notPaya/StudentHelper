@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.student_helper.R;
 import com.example.student_helper.utils.XPManager;
+import com.example.student_helper.utils.LevelUpHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.slider.Slider;
@@ -130,11 +131,14 @@ public class TimerFragment extends Fragment {
 
         if (!isBreak) {
             sessionsCompleted++;
-            XPManager.addXP(requireContext(), 50);
+            boolean leveledUp = XPManager.addXP(requireContext(), 50);
             isBreak = true;
             timeLeftSeconds = BREAK_SECONDS;
             btnStartPause.setText("▶ Pokreni pauzu");
             tvMotivation.setText("🎉 +50 XP! Bravo! Odmori se malo ☕");
+            if (leveledUp) {
+                LevelUpHelper.showLevelUpDialog(requireContext(), XPManager.getLevel(requireContext()));
+            }
         } else {
             isBreak = false;
             timeLeftSeconds = WORK_SECONDS_CUSTOM;

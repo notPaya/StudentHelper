@@ -18,6 +18,7 @@ import com.example.student_helper.database.entity.Note;
 import com.example.student_helper.databinding.DialogAddNoteBinding;
 import com.example.student_helper.databinding.FragmentNotesBinding;
 import com.example.student_helper.utils.XPManager;
+import com.example.student_helper.utils.LevelUpHelper;
 
 import java.util.ArrayList;
 
@@ -79,9 +80,13 @@ public class NotesFragment extends Fragment {
                     color
             );
             viewModel.addNote(note);
-            XPManager.addXP(requireContext(), 10);
+            boolean leveledUp = XPManager.addXP(requireContext(), 10);
             Toast.makeText(requireContext(), "+10 XP! 📓", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
+
+            if (leveledUp) {
+                LevelUpHelper.showLevelUpDialog(requireContext(), XPManager.getLevel(requireContext()));
+            }
         });
 
         dialog.show();
